@@ -1,6 +1,6 @@
-<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/app/assets/style.css">
 <div class="design-form">
-    <img class="logo-form" src="/images/logo.png" alt="logo">
+    <img class="logo-form" src="/app/images/logo.png" alt="logo">
     <form action="" method="" id="formSignUp">
         <label for="login" class="item-text">Login:</label>
         <input type="text" name="login" id="login" class="item"/>
