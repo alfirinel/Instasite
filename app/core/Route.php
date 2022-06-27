@@ -39,12 +39,12 @@ class Route
         exit();
     }
 
-    public static function url(string $action = 'index'): string
+    public static function url($action = 'index')
     {
         return "/?action=$action";
     }
 
-    public static function redirect(string $action, $controller = 'index')
+    public static function redirect($action = 'index', $controller = 'index')
     {
         $url= "/$controller/$action";
         var_dump($url);

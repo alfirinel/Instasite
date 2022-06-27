@@ -23,6 +23,7 @@ body{
     color: #091f26;
 }
 .nav{
+    margin: 0 0 0 30px;
     display: flex;
     justify-content: space-between;
 }
@@ -32,7 +33,7 @@ body{
     text-align: center;
     justify-content: center;
     padding: 3px;
-    margin: 5px 40px 5px 20px;
+    margin: 5px 10px 5px 30px;
     font-size: 30px;
     text-transform: uppercase;
 }
@@ -46,7 +47,7 @@ body{
     justify-content: center;
     padding: 3px;
     margin: auto 0;
-    font-size: 30px;
+    font-size: 25px;
     text-transform: uppercase;
 }
 
@@ -125,4 +126,30 @@ input[type=text]:focus, input[type=password]:focus {
 hr {
     border: 1px solid #f1f1f1;
     margin-bottom: 25px;
+}
+
+.startWrap{
+    position: relative;
+    max-width: 1600px;
+    margin: 0 auto 90px auto;
+    padding: 24px 24px 0 24px;
+    background-color: #ffffff;
+}
+
+.rightblock{
+    width: 500px;
+    float: right;
+    margin: 10px 0 10px 10px;
+}
+
+.leftblock{
+    width: 500px;
+    float: left;
+    margin: 10px 10px 10px 0;
+}
+
+.title{
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
 }

@@ -10,7 +10,6 @@
     </head>
     <body>
         <?php include_once PAGES_FOLDER . 'includes\header.php'; ?>
-        <span>hello, template</span>
         <?php include_once PAGES_FOLDER . $page . '.php'; ?>
         <?php include_once PAGES_FOLDER . 'includes\footer.php'; ?>
 

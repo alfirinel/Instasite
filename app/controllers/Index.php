@@ -9,10 +9,16 @@ use app\core\View;
 use app\helpers\Session;
 use app\helpers\Validator;
 use app\models\AuthModel;
+use app\models\Photo;
+
 
 class Index
 {
-    protected View $view;
+    const UPLOAD_DIR = 'images/';
+
+    protected $view;
+
+    protected $model;
 
     protected $authModel;
 
@@ -21,18 +27,33 @@ class Index
      */
     public function __construct()
     {
+        $this->model = new Photo();
         $this->view = new View();
         $this->authModel = new AuthModel();
     }
 
     public function index()
     {
-        $this->view->render('home');
+        $this->view->render('start');
     }
 
     public function gallery()
     {
-        $this->view->render('gallery');
+        $this->view->render('gallery', [
+            'photos' => $this->model->all(),
+        ]);
+    }
+
+    public function user()
+    {
+        $this->view->render('user');
+    }
+
+    public function store(){
+        $photo = $_FILES['photo'];
+        $path = self::UPLOAD_DIR.$photo['name'];
+        $this->model->add('/'.$path);
+        Route::redirect('gallery');
     }
 
     public function login()
@@ -98,7 +119,7 @@ class Index
         } else {
             $this->authModel->addUser($login, $hash_pass, $email, $name, $cur_date);
             Session::delFromSession();
-            Route::redirect('index');
+            Route::redirect();
         }
     }
 
@@ -106,7 +127,7 @@ class Index
     {
         session_start();
         session_destroy();
-        Route::redirect('index');
+        Route::redirect();
     }
 
 }
