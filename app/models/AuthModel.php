@@ -22,9 +22,9 @@ class AuthModel extends AbstractModel
         $this->db->query($sql);
     }
 
-    public function getUserAndPass($user)
+    public function getUserByLogin($login)
     {
-        $sql = "SELECT login, pass FROM `users` WHERE login = '$user';";
+        $sql = "SELECT * FROM `users` WHERE login = '$login';";
         $result = $this->db->query($sql);
         return $result->fetch_assoc();
     }

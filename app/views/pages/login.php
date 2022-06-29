@@ -1,7 +1,7 @@
 <div class="design-form">
     <img class="logo-form" src="/images/logo.png" alt="logo">
 
-    <form action="/index/checkLogin" method="post" id="formSignUp">
+    <form action="/auth/checkLogin" method="post" id="formSignUp">
         <?php if($errors !==null):?>
             <ul>
                 <?php foreach ($errors as $error):?>

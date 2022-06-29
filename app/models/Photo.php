@@ -13,9 +13,12 @@ class Photo extends AbstractModel
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function add($path){
-        $sql = "INSERT INTO photos (path) values ('$path');";
+    public function add($path, $id){
+        $sql = "INSERT INTO photos (path, user_id) values ('$path', {$id});";
         $this->db->query($sql);
+        if($this->db->errno !== 0){
+            throw new \Exception($this->db->error);
+        }
 
     }
 }

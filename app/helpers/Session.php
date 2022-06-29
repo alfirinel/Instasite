@@ -70,18 +70,20 @@ class Session
     {
         session_start();
 
-        return !empty($_SESSION['login']);
+        return !empty($_SESSION['user']);
     }
 
     /**
-     * @return string|null
+     * @return array|null
      */
-    static public function getAuthUser(): ?string
+    static public function getAuthUser(): ?array
     {
         session_start();
-        if(empty($_SESSION['login'])){
+        if(empty($_SESSION['user'])){
             return null;
         }
-        return $_SESSION['login'];
+        return $_SESSION['user'];
     }
+
+
 }

@@ -4,6 +4,8 @@
 namespace app\core;
 
 
+use app\exceptions\NoAuthException;
+
 class Route
 {
     static public function init()
@@ -26,11 +28,17 @@ class Route
         if (!class_exists($controllerClassName)) {
             self::notFound();
         }
-        $controller = new $controllerClassName();
-        if (!method_exists($controller, $actionName)) {
-            self::notFound();
+        try {
+            $controller = new $controllerClassName();
+            if (!method_exists($controller, $actionName)) {
+                self::notFound();
+            }
+            $controller->$actionName();
         }
-        $controller->$actionName();
+        catch(NoAuthException $e){
+            self::redirect('login', 'auth');
+        }
+
     }
 
     static public function notFound()

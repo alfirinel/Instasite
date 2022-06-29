@@ -1,6 +1,6 @@
 <div class="design-form">
     <img class="logo-form" src="/images/logo.png" alt="logo">
-    <form action="/index/checkSignup" method="post" id="formSignUp">
+    <form action="/auth/checkSignup" method="post" id="formSignUp">
         <?php if(isset($errors)):?>
             <ul>
                 <?php foreach ($errors as $error):?>
