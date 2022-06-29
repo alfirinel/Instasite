@@ -9,7 +9,6 @@ use app\core\View;
 use app\exceptions\NoAuthException;
 use app\exceptions\UploadException;
 use app\helpers\Session;
-use app\helpers\Validator;
 use app\models\AuthModel;
 use app\models\Photo;
 
@@ -29,7 +28,7 @@ class Index
      */
     public function __construct()
     {
-        if(!Session::isAuth()){
+        if (!Session::isAuth()) {
             throw new NoAuthException();
         }
         $this->model = new Photo();
@@ -51,20 +50,35 @@ class Index
 
     public function user()
     {
-        $this->view->render('user');
+        $user = Session::getAuthUser();
+//        var_dump($this->model->getByUserID($user['id']));
+//        exit();
+        $this->view->render('user', [
+            'photos' => $this->model->getByUserID($user['id']),
+        ]);
     }
 
-    public function store(){
+    public function store()
+    {
         $user = Session::getAuthUser();
         $photo = $_FILES['photo'];
-        $path = self::UPLOAD_DIR.$photo['name'];
-        if(!move_uploaded_file($photo['tmp_name'], $path)){
+        $path = self::UPLOAD_DIR . $photo['name'];
+        if (!move_uploaded_file($photo['tmp_name'], $path)) {
             throw new UploadException('no upload');
         }
-        $this->model->add('/'.$path, $user['id']);
+        $this->model->add('/' . $path, $user['id']);
         Route::redirect('gallery');
     }
 
+    public function destroy()
+    {
+        $id = filter_input(INPUT_POST, 'id');
+//        var_dump($id);
+//        exit();
+        //TODO если нет ид, то 404 статус
+        $this->model->delete($id);
+        Route::redirect('user');
+    }
 
 
 }
