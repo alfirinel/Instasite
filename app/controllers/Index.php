@@ -32,6 +32,7 @@ class Index
 //        if(!Session::isAuth()){
 //            throw new NoAuthException();
 //        }
+        }
         $this->model = new Photo();
         $this->view = new View();
         $this->authModel = new AuthModel();
@@ -51,20 +52,35 @@ class Index
 
     public function user()
     {
-        $this->view->render('user');
+        $user = Session::getAuthUser();
+//        var_dump($this->model->getByUserID($user['id']));
+//        exit();
+        $this->view->render('user', [
+            'photos' => $this->model->getByUserID($user['id']),
+        ]);
     }
 
-    public function store(){
+    public function store()
+    {
         $user = Session::getAuthUser();
         $photo = $_FILES['photo'];
-        $path = self::UPLOAD_DIR.$photo['name'];
-        if(!move_uploaded_file($photo['tmp_name'], $path)){
+        $path = self::UPLOAD_DIR . $photo['name'];
+        if (!move_uploaded_file($photo['tmp_name'], $path)) {
             throw new UploadException('no upload');
         }
         $this->model->add('/'.$path, $user['id']);
         Route::redirect('gallery');
     }
 
+    public function destroy()
+    {
+        $id = filter_input(INPUT_POST, 'id');
+//        var_dump($id);
+//        exit();
+        //TODO если нет ид, то 404 статус
+        $this->model->delete($id);
+        Route::redirect('user');
+    }
 
 
 }

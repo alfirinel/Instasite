@@ -21,4 +21,22 @@ class Photo extends AbstractModel
         }
 
     }
+
+    public function getByUserId($id)
+    {
+        $sql = "SELECT * FROM photos WHERE user_id={$id};";
+        $result = $this->db->query($sql);
+        if($this->db->errno !== 0){
+            throw new \Exception($this->db->error);
+        }
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function delete($id){
+        $sql = "DELETE FROM `photos` WHERE id={$id}";
+        $this->db->query($sql);
+        if($this->db->errno !== 0){
+            throw new \Exception($this->db->error);
+        }
+    }
 }
