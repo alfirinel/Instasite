@@ -36,7 +36,7 @@ class Route
             $controller->$actionName();
         }
         catch(NoAuthException $e){
-            self::redirect('login', 'auth');
+            self::redirect();
         }
 
     }

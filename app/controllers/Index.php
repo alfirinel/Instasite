@@ -29,9 +29,9 @@ class Index
      */
     public function __construct()
     {
-        if(!Session::isAuth()){
-            throw new NoAuthException();
-        }
+//        if(!Session::isAuth()){
+//            throw new NoAuthException();
+//        }
         $this->model = new Photo();
         $this->view = new View();
         $this->authModel = new AuthModel();
