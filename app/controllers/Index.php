@@ -6,13 +6,11 @@ namespace app\controllers;
 
 use app\core\Route;
 use app\core\View;
-use app\exceptions\NoAuthException;
 use app\exceptions\UploadException;
 use app\helpers\Session;
-use app\helpers\Validator;
 use app\models\AuthModel;
 use app\models\Photo;
-
+use app\exceptions\NoAuthException;
 
 class Index
 {
@@ -32,11 +30,12 @@ class Index
 //        if(!Session::isAuth()){
 //            throw new NoAuthException();
 //        }
-        }
+
         $this->model = new Photo();
         $this->view = new View();
         $this->authModel = new AuthModel();
     }
+
 
     public function index()
     {
@@ -53,8 +52,6 @@ class Index
     public function user()
     {
         $user = Session::getAuthUser();
-//        var_dump($this->model->getByUserID($user['id']));
-//        exit();
         $this->view->render('user', [
             'photos' => $this->model->getByUserID($user['id']),
         ]);
@@ -75,12 +72,17 @@ class Index
     public function destroy()
     {
         $id = filter_input(INPUT_POST, 'id');
-//        var_dump($id);
-//        exit();
         //TODO если нет ид, то 404 статус
         $this->model->delete($id);
         Route::redirect('user');
     }
 
+    public function like()
+    {
+        $user = Session::getAuthUser();
+        $photoId = filter_input(INPUT_POST, 'id');
+        $this->model->addLike($user['id'], $photoId);
+        Route::redirect('gallery');
+    }
 
 }

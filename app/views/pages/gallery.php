@@ -1,23 +1,16 @@
-<span>working gallery</span>
 <div class="galleryWrap">
-    <table>
-        <thead>
-        <tr>
-            <th>id</th>
-            <th>Photo</th>
-            <th>Action</th>
-        </tr>
-        </thead>
         <?php if(count($photos) > 0):?>
-            <tbody>
             <?php foreach ($photos as $photo):?>
-                <tr>
-                    <td><?= $photo['id']?></td>
-                    <td><img src="<?= $photo['path']?>"/></td>
-                </tr>
+                    <?= $photo['user'] ?>
+                    <img src="<?= $photo['path']?>" class="gallery-photo" alt="gallery-photo"/>
+                        <form action="/index/like" method="post" class="btn-like">
+                            <input type="hidden" name="id" value="<?= $photo['id']?>">
+                            <input type="submit" value="like">
+                            <?= $photo['likes']?>
+                            <?= $photo['created_at']?>
+                        </form>
             <?php endforeach;?>
-            </tbody>
         <?php endif;?>
-    </table>
 </div>
+
 

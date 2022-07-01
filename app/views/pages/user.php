@@ -20,7 +20,7 @@
                 <?php foreach ($photos as $photo):?>
                     <tr>
                         <td><?= $photo['id']?></td>
-                        <td><img src="<?= $photo['path']?>"/></td>
+                        <td><img src="<?= $photo['path']?>" class="gallery-photo"/></td>
                         <td>
                             <form action="/index/destroy" method="post">
                                 <input type="hidden" name="id" value="<?= $photo['id']?>">
