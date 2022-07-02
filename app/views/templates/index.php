@@ -11,6 +11,7 @@
     <body>
         <?php include_once PAGES_FOLDER . 'includes\header.php'; ?>
         <?php include_once PAGES_FOLDER . $page . '.php'; ?>
+        <?php include_once PAGES_FOLDER . 'includes\pagination.php'; ?>
         <?php include_once PAGES_FOLDER . 'includes\footer.php'; ?>
 
     </body>

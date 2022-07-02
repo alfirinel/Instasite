@@ -6,30 +6,30 @@ namespace app\controllers;
 
 use app\core\Route;
 use app\core\View;
+use app\exceptions\NoAuthException;
 use app\exceptions\UploadException;
 use app\helpers\Session;
 use app\models\AuthModel;
 use app\models\Photo;
-use app\exceptions\NoAuthException;
 
 class Index
 {
     const UPLOAD_DIR = 'images/gallery/';
 
-    protected $view;
+    protected View $view;
 
-    protected $model;
+    protected Photo $model;
 
-    protected $authModel;
+    protected AuthModel $authModel;
 
     /**
      * Controller constructor.
      */
     public function __construct()
     {
-//        if(!Session::isAuth()){
-//            throw new NoAuthException();
-//        }
+        if(!Session::isAuth()){
+            throw new NoAuthException();
+        }
 
         $this->model = new Photo();
         $this->view = new View();
@@ -44,8 +44,12 @@ class Index
 
     public function gallery()
     {
+        var_dump($_GET);
+//        exit();
         $this->view->render('gallery', [
             'photos' => $this->model->all(),
+            'current_page'=>2,
+            'tatal_page'=>8,
         ]);
     }
 
@@ -79,6 +83,7 @@ class Index
 
     public function like()
     {
+        $isLiked = false;
         $user = Session::getAuthUser();
         $photoId = filter_input(INPUT_POST, 'id');
         $this->model->addLike($user['id'], $photoId);

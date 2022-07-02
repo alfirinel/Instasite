@@ -10,8 +10,9 @@ class Route
 {
     static public function init()
     {
-        $uri = $_SERVER['REQUEST_URI'];
-        $uriComponents = explode('/', $uri);
+        $uri = parse_url($_SERVER['REQUEST_URI']);
+//        $get = $uri['query'];
+        $uriComponents = explode('/', $uri['path']);
         array_shift($uriComponents);
         if (count($uriComponents) > 2) {
             self::notFound();
