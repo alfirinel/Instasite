@@ -153,16 +153,41 @@ hr {
     font-size: 30px;
     font-weight: bold;
 }
+
+.like{
+    height: 35px;
+    cursor:pointer;
+    background-color: transparent;
+    border: none;
+    margin: 5px;
+}
+
+.like-wrap{
+    display: flex;
+    align-items: center;
+    background-color: #e5e5e5;
+    border: 1px solid transparent;
+    margin: 3px 0;
+    border-radius: 15px;
+    height: 30px;
+    padding: 3px;
+}
+
+.like-number{
+    margin: 0 10px;
+    font-size: 20px;
+}
+
 .galleryWrap{
     position: relative;
     max-width: 1600px;
     margin: 0 auto 90px auto;
     padding: 24px 24px 0 24px;
     background-color: #ffffff;
-
+    text-align: center;
 }
 
-.gallery-photo{
+.galleryPic{
     width: 500px;
     height: 300px;
     border: 1px #ffffff solid;
@@ -170,11 +195,18 @@ hr {
     object-fit: cover;
 }
 
-.like{
-    width: 50px;
-    height: 50px;
-    cursor:pointer;
-    background-color: transparent;
-    border: none;
+.grid{
+    display: inline-grid;
+    width: 500px;
+    margin: 5px 10px;
 }
 
+.bottom-list{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-name{
+    font-size: 20px;
+}
