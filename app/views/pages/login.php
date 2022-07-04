@@ -1,5 +1,5 @@
 <div class="design-form">
-    <img class="logo-form" src="/images/logo.png" alt="logo">
+    <img class="logo-form" src="/images/logo/logo.png" alt="logo">
 
     <form action="/auth/checkLogin" method="post" id="formSignUp">
         <?php if($errors !==null):?>

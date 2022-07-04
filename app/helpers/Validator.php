@@ -4,6 +4,8 @@
 namespace app\helpers;
 
 
+use app\core\Route;
+
 class Validator
 {
     static public function isValid($value, $name = 'field', $length = 3)
@@ -57,4 +59,39 @@ class Validator
             return true;
         }
     }
+
+    public static function checkUploadPhoto()
+    {
+        $fileUploadErrors = [
+            0 => 'There is no error, the file uploaded with success',
+            1 => 'The uploaded file exceeds the upload_max_filesize directive in php.ini',
+            2 => 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form',
+            3 => 'The uploaded file was only partially uploaded',
+            4 => 'No file was uploaded',
+            6 => 'Missing a temporary folder',
+            7 => 'Failed to write file to disk',
+            8 => 'A PHP extensions stopped the file upload',
+        ];
+
+        if (!isset($_FILES['photo'])) {
+            $errors[] = 'No file!';
+            Session::setErrors($errors);
+            Route::redirect('store', 'photo');
+        }
+        $file = $_FILES['photo'];
+        if ($file['error'] !== UPLOAD_ERR_OK) {
+            $errors[] = $fileUploadErrors[$file['error']];
+        }
+        if (!in_array($file['type'], PHOTO_AVAILABLE_TYPE)) {
+            $errors[] = 'Not available type of file';
+        }
+        if ($file['size'] > PHOTO_MAX_FILE_SIZE) {
+            $errors[] = 'file too large';
+        }
+        if(isset($errors)){
+            Session::setErrors($errors);
+            Route::redirect('store');
+        }
+    }
+
 }

@@ -25,13 +25,6 @@ class Session
         return [];
     }
 
-    static public function setAuthLogin(string $login)
-    {
-        session_start();
-
-        $_SESSION['login'] = $login;
-
-    }
     static public function setValue( string $name, $value)
     {
         session_start();
@@ -70,7 +63,7 @@ class Session
     {
         session_start();
 
-        return !empty($_SESSION['user']);
+        return !empty($_SESSION['login']);
     }
 
     /**
@@ -79,11 +72,9 @@ class Session
     static public function getAuthUser(): ?array
     {
         session_start();
-        if(empty($_SESSION['user'])){
+        if(empty($_SESSION['login'])){
             return null;
         }
-        return $_SESSION['user'];
+        return $_SESSION['login'];
     }
-
-
 }

@@ -7,7 +7,7 @@ use app\core\View;
 use app\helpers\Session;
 use app\helpers\Validator;
 use app\models\AuthModel;
-use app\models\Photo;
+use app\models\PhotoModel;
 
 class Auth
 {
@@ -22,7 +22,7 @@ class Auth
      */
     public function __construct()
     {
-        $this->model = new Photo();
+        $this->model = new PhotoModel();
         $this->view = new View();
         $this->authModel = new AuthModel();
     }
@@ -45,7 +45,7 @@ class Auth
         $realPass = password_verify($password, $user['pass']);
         if($realPass && $user){
             Session::delFromSession();
-            Session::setValue('user', $user);
+            Session::setValue('login', $user);
             Route::redirect('index');
         }else{
             Session::delFromSession('errors');

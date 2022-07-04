@@ -6,19 +6,19 @@ namespace app\controllers;
 
 use app\core\Route;
 use app\core\View;
-use app\exceptions\NoAuthException;
 use app\exceptions\UploadException;
 use app\helpers\Session;
+use app\helpers\Validator;
 use app\models\AuthModel;
-use app\models\Photo;
+use app\models\PhotoModel;
+
 
 class Index
 {
-    const UPLOAD_DIR = 'images/gallery/';
 
     protected View $view;
 
-    protected Photo $model;
+    protected PhotoModel $model;
 
     protected AuthModel $authModel;
 
@@ -27,15 +27,15 @@ class Index
      */
     public function __construct()
     {
-        if(!Session::isAuth()){
-            throw new NoAuthException();
+
+        if (!Session::isAuth()) {
+            Route::redirect('login', 'auth');
         }
 
-        $this->model = new Photo();
+        $this->model = new PhotoModel();
         $this->view = new View();
         $this->authModel = new AuthModel();
     }
-
 
     public function index()
     {
@@ -48,8 +48,8 @@ class Index
 //        exit();
         $this->view->render('gallery', [
             'photos' => $this->model->all(),
-            'current_page'=>2,
-            'tatal_page'=>8,
+            'current_page' => 2,
+            'tatal_page' => 8,
         ]);
     }
 
@@ -63,20 +63,29 @@ class Index
 
     public function store()
     {
+        Validator::checkUploadPhoto();
         $user = Session::getAuthUser();
         $photo = $_FILES['photo'];
-        $path = self::UPLOAD_DIR . $photo['name'];
+        var_dump(realpath('images/gallery/root_62c06d4d0626c.jpg'));
+        $extension = pathinfo($photo['name'], PATHINFO_EXTENSION);
+        $fileName = uniqid($user['login'] . '_') . '.' . $extension;
+        $path = UPLOAD_DIR . $fileName;
+        var_dump($path, $user);
+//        exit();
         if (!move_uploaded_file($photo['tmp_name'], $path)) {
             throw new UploadException('no upload');
         }
-        $this->model->add('/'.$path, $user['id']);
-        Route::redirect('gallery');
+        $this->model->add( '/'. $path, $user['id']);
+        Route::redirect('user');
     }
+
 
     public function destroy()
     {
         $id = filter_input(INPUT_POST, 'id');
-        //TODO если нет ид, то 404 статус
+        if (!isset($id)) {
+            Route::notFound();
+        }
         $this->model->delete($id);
         Route::redirect('user');
     }
@@ -86,8 +95,9 @@ class Index
         $isLiked = false;
         $user = Session::getAuthUser();
         $photoId = filter_input(INPUT_POST, 'id');
-        $this->model->addLike($user['id'], $photoId);
+        $this->model->addLike( $user['id'], $photoId);
         Route::redirect('gallery');
     }
+
 
 }

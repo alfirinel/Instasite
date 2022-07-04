@@ -1,5 +1,5 @@
 <div class="bg-image">
-    <div class="nav"><a href="/"><img class="logo" src="/images/logo.png" alt="logo"></a>
+    <div class="nav"><a href="/"><img class="logo" src="/images/logo/logo.png" alt="logo"></a>
         <?php if(\app\helpers\Session::isAuth()):?>
             <ul class="header-list">
                 <li  class="header-list-item"><a href="/" class="header_name">Home</a></li>
@@ -7,7 +7,7 @@
                 <li  class="header-list-item"><a href="/index/user" class="header_name">My photos</a></li>
             </ul>
             <ul class="auth-list">
-                <li class="auth-list-item">Howdy, <?= \app\helpers\Session::getValue('user')['login'] ?>!</li>
+                <li class="auth-list-item">Howdy, <?= \app\helpers\Session::getValue('login')['login'] ?>!</li>
                 <li  class="auth-list-item">|</li>
                 <li class="auth-list-item"><a href="/auth/logout" class="header_name">Log out</a></li>
             </ul>

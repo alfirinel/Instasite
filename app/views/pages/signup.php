@@ -1,5 +1,5 @@
 <div class="design-form">
-    <img class="logo-form" src="/images/logo.png" alt="logo">
+    <img class="logo-form" src="/images/logo/logo.png" alt="logo">
     <form action="/auth/checkSignup" method="post" id="formSignUp">
         <?php if(isset($errors)):?>
             <ul>
@@ -23,6 +23,6 @@
         <input type="submit" value="Sign Up" class="item-btn">
     </form>
     <div class="container signin">
-        <p>Already have an account? <a href="#">Sign in</a></p>
+        <p>Already have an account? <a href="login">Sign in</a></p>
     </div>
 </div>
