@@ -17,12 +17,12 @@
         <input type="email" name="email" id="email" value="<?= $email?>" class="item"  placeholder="Enter email" required>
         <label for="pass" class="item-text">Password:</label>
         <input type="password" name="password" id="pass" class="item" minlength="6" placeholder="Enter password" required/>
-        <label for="conf_pass" class="item-text">Password&nbspconfirm:</label>
+        <label for="conf_pass" class="item-text">Confirm&nbsppassword:</label>
         <input type="password" name="password_confirm" id="conf_pass" class="item" minlength="6" placeholder="Repeat password" required/>
         <input type="hidden" class="item-text" name="cur_date" value="<?= time()?>">
         <input type="submit" value="Sign Up" class="item-btn">
     </form>
     <div class="container signin">
-        <p>Already have an account? <a href="#">Sign in</a></p>
+        <p>Already have an account? <a href="login">Sign in</a></p>
     </div>
 </div>

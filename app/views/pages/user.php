@@ -1,36 +1,30 @@
-<div class="panel-body">
-    <form action="/index/store" method="post" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="photo">Upload photo:</label>
-            <input type="file" class="form-control" id="photo" name="photo">
-        </div>
-        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-upload"></span> Upload</button>
-    </form>
-    <div class="galleryWrap">
-        <table>
-            <thead>
-            <tr>
-                <th>id</th>
-                <th>Photo</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <?php if(count($photos) > 0):?>
-                <tbody>
-                <?php foreach ($photos as $photo):?>
-                    <tr>
-                        <td><?= $photo['id']?></td>
-                        <td><img src="<?= $photo['path']?>" class="gallery-photo"/></td>
-                        <td>
+<div class="galleryWrap">
+    <div class="design-form-user">
+        <form action="/index/store" method="post" enctype="multipart/form-data" class="form-group">
+            <div >
+                <label for="photo"></label>
+                <input type="file" class="form-control" id="photo" name="photo">
+            </div>
+            <div>
+                <button type="submit" class="btn-upload"><i class="fa fa-upload"></i> Upload</button>
+            </div>
+        </form>
+    </div>
+
+        <?php if(count($photos) > 0):?>
+            <?php foreach ($photos as $photo):?>
+                <div class="grid">
+                    <img src="<?= $photo['path']?>" class="galleryPic"/>
+                    <div class="bottom-list">
+                        <div >
                             <form action="/index/destroy" method="post">
                                 <input type="hidden" name="id" value="<?= $photo['id']?>">
-                                <input type="submit" value="Delete">
+                                <input type="image" src="/images/delete.png" class="delete-btn">
                             </form>
-                        </td>
-                    </tr>
-                <?php endforeach;?>
-                </tbody>
-            <?php endif;?>
-        </table>
+                        </div>
+                        <div><?= $photo['created_at']?></div>
+                    </div>
+                </div>
+            <?php endforeach;?>
+        <?php endif;?>
     </div>
-</div>
