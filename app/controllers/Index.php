@@ -10,7 +10,6 @@ use app\exceptions\UploadException;
 use app\helpers\Session;
 use app\models\AuthModel;
 use app\models\Photo;
-use app\exceptions\NoAuthException;
 
 class Index
 {
@@ -46,6 +45,8 @@ class Index
     {
         $this->view->render('gallery', [
             'photos' => $this->model->all(),
+            'cur_page'=>$_GET['page'],
+            'total'=>$this->model->totalCount(),
         ]);
     }
 
@@ -54,6 +55,8 @@ class Index
         $user = Session::getAuthUser();
         $this->view->render('user', [
             'photos' => $this->model->getByUserID($user['id']),
+            'cur_page'=>$_GET['page'],
+            'total'=>$this->model->totalCount(),
         ]);
     }
 
