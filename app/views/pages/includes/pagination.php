@@ -2,7 +2,6 @@
 if($page!==$page){
     $cur_page === 1;
 }
-var_dump($total);
 ?>
 <div class="center">
     <div class="pagination active">

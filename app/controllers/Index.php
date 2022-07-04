@@ -46,7 +46,7 @@ class Index
         $this->view->render('gallery', [
             'photos' => $this->model->all(),
             'cur_page'=>$_GET['page'],
-            'total'=>$this->model->totalCount(),
+            'total'=>4,
         ]);
     }
 
@@ -69,7 +69,7 @@ class Index
             throw new UploadException('no upload');
         }
         $this->model->add('/'.$path, $user['id']);
-        Route::redirect('gallery');
+        Route::redirect('user');
     }
 
     public function destroy()
